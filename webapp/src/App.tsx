@@ -10,6 +10,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <h1>Hello world</h1>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -21,6 +22,17 @@ function App() {
       </header>
     </div>
   );
+
+  async function F() {
+    let response = await fetch("http://localhost:8080/get");
+
+    if (response.ok) { // если HTTP-статус в диапазоне 200-299
+      // получаем тело ответа (см. про этот метод ниже)
+      let json = await response.json();
+    } else {
+      alert("Ошибка HTTP: " + response.status);
+    }
+  }
 }
 
 export default App;
