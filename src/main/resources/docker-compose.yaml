@@ -15,7 +15,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - /opt/redis:/
+      - /opt/redis
     environment:
       - REDIS_PASSWORD=my-password
       - REDIS_PORT=6379
@@ -26,7 +26,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITD B_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: example
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4

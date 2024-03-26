@@ -25,3 +25,7 @@
 /build/tmp/jar/MANIFEST.MF
 /build/tmp/compileJava/previous-compilation-data.bin
 /.gradle/7.4/fileHashes/resourceHashesCache.bin
+.idea/*
+.gradle/*
+build/*
+webapp.iml
