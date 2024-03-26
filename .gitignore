@@ -18,3 +18,10 @@
 /.gradle/buildOutputCleanup/outputFiles.bin
 /.gradle/7.4/checksums/sha1-checksums.bin
 /.idea/vcs.xml
+/build/resources/main/application.properties
+/build/libs/chat-1.0-SNAPSHOT.jar
+/.idea/gradle.xml
+/build/classes/java/main/org/example/Main.class
+/build/tmp/jar/MANIFEST.MF
+/build/tmp/compileJava/previous-compilation-data.bin
+/.gradle/7.4/fileHashes/resourceHashesCache.bin
