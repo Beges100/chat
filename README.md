@@ -1,4 +1,6 @@
 # chat
+<b>Стек</b>:
+ - Kotlin / Java
  - ui  на js + react
  - websocket
  - MongoDB
@@ -9,12 +11,8 @@
 
 На фронте сообщения -> отлавливаются через Редис и отправляются в монгоДБ
 
-Kotlin / Java
-
-Сущность
-User
-Message
-Role
-Group
-
-Авторизаци и аутенфикация через keyCloak 
+Сущности:
+ - User
+ - Message
+ - Role
+ - Group
