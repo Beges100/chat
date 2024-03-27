@@ -4,4 +4,6 @@ pluginManagement {
     }
 }
 rootProject.name = 'chat'
+include 'chatbackend'
+include 'webapp'
 
