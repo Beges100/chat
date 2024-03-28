@@ -1,6 +1,7 @@
 spring:
   liquibase:
     enabled: true
+    change-log: changelog-master.yml
   datasource:
     username: ${DB_USERNAME}
     password: ${DB_PASS}
@@ -8,3 +9,4 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+## environment
