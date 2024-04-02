@@ -3,7 +3,7 @@ pluginManagement {
         id 'org.jetbrains.kotlin.jvm' version '1.9.21'
     }
 }
+
 rootProject.name = 'chat'
 include 'chatbackend'
 include 'webapp'
-

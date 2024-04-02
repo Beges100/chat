@@ -29,7 +29,9 @@
 .gradle/*
 build/*
 webapp.iml
-/chatbackend/build/resources/main/application.yaml
+.jar
+/*.iml
+/chatbackend/build/*
 /chatbackend/build/resources/main/docker-compose.yaml
 /chatbackend/build/classes/java/main/org/example/example/Main.class
 /chatbackend/build/tmp/compileJava/previous-compilation-data.bin
