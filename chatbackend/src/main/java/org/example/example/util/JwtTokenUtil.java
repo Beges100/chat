@@ -19,7 +19,7 @@ public class JwtTokenUtil implements Serializable {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
-    private String secretKey = "javainuse";
+    private String secretKey = "ff84ce7a24c6d4be86c4fa309a9f43120eabf1698962df43c95ac150ae1c9a9c";
 
     public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60;
 
@@ -58,7 +58,7 @@ public class JwtTokenUtil implements Serializable {
     //generate token
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, userDetails.toString());
     }
 
     public String doGenerateToken(Map<String, Object> claims, String subject) {
