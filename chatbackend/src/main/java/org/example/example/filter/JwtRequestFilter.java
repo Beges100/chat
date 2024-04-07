@@ -32,6 +32,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
         if (request.getServletPath().equals("/login")  ) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         final String tokenHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

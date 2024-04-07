@@ -1,17 +1,17 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './Login';
-import App from './App'; // Import your ChatPage component
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+// import Login from './Login';
+// import ChatApp from './App';
 
-const Home = () => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/chat" component={App} />
-      </Switch>
-    </Router>
-  );
-};
+// const Home = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route exact path="/" component={Login} />
+//         <Route path="/chat" component={ChatApp} />
+//         </Routes>
+//     </Router>
+//   );
+// };
 
-export default Home;
+// export default Home;

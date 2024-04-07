@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import Home from './Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
+import ChatApp from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -10,7 +12,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Login />
+  <Router> {/* Wrap your components with Router */}
+      <Login />
+      <ChatApp />
+    </Router>
   </React.StrictMode>
 );
 
