@@ -28,17 +28,17 @@ public class UserNameAuthorizationFilter extends UsernamePasswordAuthenticationF
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        var token = new UsernamePasswordAuthenticationToken(username, password);
+        var token = new UsernamePasswordAuthenticationToken(email, password);
         return authenticationManager.authenticate(token);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        var accessToken = jwtTokenUtil.generateToken(request.getParameter("username"));
-        var refreshToken = jwtTokenUtil.generateToken(request.getParameter("username"));
+        var accessToken = jwtTokenUtil.generateToken(request.getParameter("email"));
+        var refreshToken = jwtTokenUtil.generateToken(request.getParameter("email"));
         var tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
