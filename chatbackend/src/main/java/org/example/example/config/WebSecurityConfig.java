@@ -5,6 +5,7 @@ import org.example.example.filter.JwtRequestFilter;
 import org.example.example.filter.UserNameAuthorizationFilter;
 import org.example.example.security.JwtAuthenticationEntryPoint;
 import org.example.example.service.JwtUserDetailsService;
+import org.example.example.util.JwtTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String TOKEN_BASED_AUTH_ENTRY_POINT = "/api/**";
     private static final String GLOBAL_API = "/api/global/**";
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -46,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        var customFilter = new UserNameAuthorizationFilter(authenticationManager());
+        var customFilter = new UserNameAuthorizationFilter(authenticationManager(), jwtTokenUtil);
         httpSecurity
                 .csrf().disable()
                 .exceptionHandling()

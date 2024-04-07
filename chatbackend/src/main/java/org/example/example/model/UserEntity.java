@@ -29,6 +29,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    private String email;
+
 //    @ManyToMany(fetch = FetchType.EAGER)
 //    @JoinTable(
 //            name = "user_roles",

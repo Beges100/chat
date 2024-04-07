@@ -17,11 +17,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+    //todo mapper
     public void saveUser(UserDto userDto) {
         var user = new UserEntity();
         user.setId(UUID.randomUUID());
         user.setUserName(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setEmail(userDto.getEmail());
         userRepository.save(user);
     }
 }
