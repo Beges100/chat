@@ -3,4 +3,6 @@ databaseChangeLog:
       file: changelog/31_03_2024_user.sql
   - include:
       file: changelog/31_03_2024_role.sql
+  - include:
+      file: changelog/07_04_2024_unique.sql
 

@@ -39,7 +39,7 @@ dependencies {
     implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.2.2')
     implementation 'org.liquibase:liquibase-core:4.5.0'
     implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
-    implementation ('ru.chatapi:chat-api:1.0.0')
+    implementation ('ru.chatapi:chat-api:1.0.1')
 
     annotationProcessor ('org.mapstruct:mapstruct-processor:1.5.3.Final')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"

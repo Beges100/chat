@@ -2,6 +2,7 @@ package org.example.example.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.example.filter.JwtRequestFilter;
+import org.example.example.filter.UserNameAuthorizationFilter;
 import org.example.example.security.JwtAuthenticationEntryPoint;
 import org.example.example.service.JwtUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -34,24 +34,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+        var customFilter = new UserNameAuthorizationFilter(authenticationManager());
         httpSecurity
-                .antMatcher("/api/**")
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
-
+                .and()
+                .addFilter(customFilter)
+                .authorizeRequests().antMatchers("/sign-up").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/login").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -65,6 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(TOKEN_BASED_AUTH_ENTRY_POINT).authenticated()
 
                 .and()
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .authorizeRequests().anyRequest().authenticated();
     }
 }

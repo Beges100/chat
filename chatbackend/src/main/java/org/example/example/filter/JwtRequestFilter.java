@@ -1,9 +1,10 @@
 package org.example.example.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import lombok.RequiredArgsConstructor;
 import org.example.example.service.JwtUserDetailsService;
 import org.example.example.util.JwtTokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,20 +19,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, ServletException, IOException {
-        final String tokenHeader = request.getHeader("Authorization");
+        if (request.getServletPath().equals("/sign-up")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if (request.getServletPath().equals("/login")  ) {
+            filterChain.doFilter(request, response);
+        }
+
+        final String tokenHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         String username = null;
         String jwtToken = null;
 
         // if token is present then extract it
-        if(tokenHeader != null && tokenHeader.startsWith("Bearer")){
+        if(tokenHeader != null && tokenHeader.startsWith("Bearer ")){
             jwtToken = tokenHeader.substring(7);
 
             // fetch username from token
@@ -46,6 +54,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }else {
             logger.warn("JWT Token does not begin with Bearer String");
+            throw new RuntimeException("JWT Token does not begin with Bearer String");
         }
 
         // validate the token
@@ -60,6 +69,5 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
-        filterChain.doFilter(request, response);
     }
 }
