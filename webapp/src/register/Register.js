@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './Login.css';
+import { Navigate } from 'react-router-dom';
+
 
 const Register = () => {
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = username('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -15,59 +20,55 @@ const Register = () => {
     setPassword(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
-        // const response = await fetch('http://localhost:8080/register', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({ username, password , email})
-        // });
-        // if (!response.ok) {
-        //   throw new Error('Login failed');
-        // }
-        console.log('Login successful');
+      // Make POST request to sign up endpoint
+      const response = await fetch('http://localhost:8080/sign-up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, username, password })
+      });
 
-        history.push('/chat');
-        // You can handle the successful login response here
-      } catch (error) {
-        console.error('Login failed:', error.message);
-        // You can handle login failures here
+      if (!response.ok) {
+        throw new Error('Sign up failed');
+        setIsLoggedIn(false)
       }
-      
-  };
+      setIsLoggedIn(true)
 
+      // If sign up is successful, redirect to /chat page
+    } catch (error) {
+      console.error('Sign up failed:', error.message);
+      // Handle sign up failure (e.g., display error message)
+    }
+  };
+if (isLoggedIn) {
+  return <Navigate to="/chat"/>
+} else {
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form className="form-container" onSubmit={handleSubmit}>
-        <div className="input-container">
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={handleUsernameChange}
-          />
+    <div>
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input type="email" value={email} onChange={handleEmailChange} />
         </div>
-        <div className="input-container">
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
+        <div>
+          <label>Username:</label>
+          <input type="text" value={username} onChange={handleUsernameChange} />
         </div>
-        <button className='button' type="submit">Register</button>
+        <div>
+          <label>Password:</label>
+          <input type="password" value={password} onChange={handlePasswordChange} />
+        </div>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
 };
+}
 
 export default Register;

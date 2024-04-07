@@ -5,6 +5,7 @@ import './index.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import ChatApp from './App';
+import Register from './register/Register';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -13,8 +14,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
   <Router> {/* Wrap your components with Router */}
-      <Login />
-      <ChatApp />
+      <Routes>
+      <Route path="/" Component={Register} />
+      <Route path="/chat" Component={ChatApp} />
+      <Route path="/login" Component={Login} />
+     
+      </Routes>
     </Router>
   </React.StrictMode>
 );
